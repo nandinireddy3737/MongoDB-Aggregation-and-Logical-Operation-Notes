@@ -2,18 +2,7 @@
 
 This repository contains notes and examples on **MongoDB Aggregation Framework** and **Logical Operators**.  
 All queries can be executed in **MongoDB Shell (mongosh)** or in **MongoDB Compass**.
-
----
-
-Perfect 🚀 I’ll rewrite your **README.md** so it clearly explains the **step-by-step flow** (from database creation → inserting → aggregation → logical queries).
-
-Here’s the updated content for your README:
-
-````markdown
-# MongoDB Aggregation and Logical Operation Notes
-
-This repository contains step-by-step notes and examples on **MongoDB Database Creation**, **Data Insertion**, **Aggregation Framework**, and **Logical Operators**.  
-All queries can be executed in **MongoDB Shell (mongosh)** or in **MongoDB Compass**.
+goDB Compass**.
 
 ---
 
