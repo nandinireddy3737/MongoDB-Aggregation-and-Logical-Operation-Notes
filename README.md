@@ -1,162 +1,86 @@
+
 # MongoDB Aggregation and Logical Operation Notes
 
-Create Database and Collection
-use collegeDB;
 
-db.createCollection("students");
-````
 
----
+## 🗄 Create Database & Dataset
 
-Insert Documents
+```
+use schoolDB
+```
 
-```js
+```
 db.students.insertMany([
-  { name: "Rahul", age: 20, city: "Hyderabad", department: "CSE", marks: 85 },
-  { name: "Anjali", age: 19, city: "Bangalore", department: "ECE", marks: 72 },
-  { name: "Ravi", age: 21, city: "Hyderabad", department: "IT", marks: 60 },
-  { name: "Meena", age: 18, city: "Chennai", department: "CSE", marks: 45 },
-  { name: "Arjun", age: 22, city: "Bangalore", department: "ECE", marks: 30 }
-]);
+  { name: "Alice", age: 20, marks: 85, city: "Delhi" },
+  { name: "Bob", age: 22, marks: 67, city: "Mumbai" },
+  { name: "Charlie", age: 21, marks: 92, city: "Delhi" },
+  { name: "David", age: 23, marks: 58, city: "Chennai" },
+  { name: "Eva", age: 20, marks: 74, city: "Mumbai" }
+])
 ```
 
----
-Aggregation Queries with Outputs
+**Output (from shell):**
 
-### 1. Match students with marks ≥ 50
-
-```js
-db.students.aggregate([
-  { $match: { marks: { $gte: 50 } } }
-]);
 ```
-
-**Output:**
-
-```json
-[
-  { "name": "Rahul", "age": 20, "city": "Hyderabad", "department": "CSE", "marks": 85 },
-  { "name": "Anjali", "age": 19, "city": "Bangalore", "department": "ECE", "marks": 72 },
-  { "name": "Ravi", "age": 21, "city": "Hyderabad", "department": "IT", "marks": 60 }
-]
-```
-
----
-
-### 2. Group students by department (average marks & total count)
-
-```js
-db.students.aggregate([
-  {
-    $group: {
-      _id: "$department",
-      avgMarks: { $avg: "$marks" },
-      totalStudents: { $sum: 1 }
-    }
+switched to db schoolDB
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("66f2e4b3a23f98d7a1c11111"),
+    '1': ObjectId("66f2e4b3a23f98d7a1c11112"),
+    '2': ObjectId("66f2e4b3a23f98d7a1c11113"),
+    '3': ObjectId("66f2e4b3a23f98d7a1c11114"),
+    '4': ObjectId("66f2e4b3a23f98d7a1c11115")
   }
-]);
-```
-
-**Output:**
-
-```json
-[
-  { "_id": "CSE", "avgMarks": 65, "totalStudents": 2 },
-  { "_id": "ECE", "avgMarks": 51, "totalStudents": 2 },
-  { "_id": "IT",  "avgMarks": 60, "totalStudents": 1 }
-]
+}
 ```
 
 ---
 
-### 3. Project name, marks, and pass/fail status
 
-```js
+
+### 1. Match Students with Marks ≥ 70
+
+```
 db.students.aggregate([
-  {
-    $project: {
-      name: 1,
-      marks: 1,
-      isPassed: { $cond: [ { $gte: ["$marks", 35] }, true, false ] }
-    }
-  }
-]);
+  { $match: { marks: { $gte: 70 } } }
+])
 ```
 
-**Output:**
+**Output (from shell):**
 
-```json
+```
 [
-  { "name": "Rahul", "marks": 85, "isPassed": true },
-  { "name": "Anjali", "marks": 72, "isPassed": true },
-  { "name": "Ravi",  "marks": 60, "isPassed": true },
-  { "name": "Meena", "marks": 45, "isPassed": true },
-  { "name": "Arjun", "marks": 30, "isPassed": false }
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11111"), name: 'Alice', age: 20, marks: 85, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11113"), name: 'Charlie', age: 21, marks: 92, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11115"), name: 'Eva', age: 20, marks: 74, city: 'Mumbai' }
 ]
 ```
 
 ---
 
-## 📌 Step 4: Logical Operators with Outputs
+### 2. Group Students by City and Find Average Marks
 
-### 1. `$and` → Students from Hyderabad AND age ≥ 20
-
-```js
-db.students.find({
-  $and: [
-    { city: "Hyderabad" },
-    { age: { $gte: 20 } }
-  ]
-});
+```
+db.students.aggregate([
+  { $group: { _id: "$city", avgMarks: { $avg: "$marks" } } }
+])
 ```
 
-**Output:**
+**Output (from shell):**
 
-```json
+```
 [
-  { "name": "Rahul", "age": 20, "city": "Hyderabad", "department": "CSE", "marks": 85 },
-  { "name": "Ravi",  "age": 21, "city": "Hyderabad", "department": "IT", "marks": 60 }
+  { _id: 'Delhi', avgMarks: 88.5 },
+  { _id: 'Mumbai', avgMarks: 70.5 },
+  { _id: 'Chennai', avgMarks: 58 }
 ]
 ```
 
 ---
 
-### 2. `$or` → Students from Hyderabad OR Bangalore
+### 3. Sort Students by Marks (Descending)
 
-```js
-db.students.find({
-  $or: [
-    { city: "Hyderabad" },
-    { city: "Bangalore" }
-  ]
-});
 ```
-
-**Output:**
-
-```json
-[
-  { "name": "Rahul", "age": 20, "city": "Hyderabad", "department": "CSE", "marks": 85 },
-  { "name": "Ravi",  "age": 21, "city": "Hyderabad", "department": "IT", "marks": 60 },
-  { "name": "Anjali", "age": 19, "city": "Bangalore", "department": "ECE", "marks": 72 },
-  { "name": "Arjun",  "age": 22, "city": "Bangalore", "department": "ECE", "marks": 30 }
-]
+db.students
 ```
-
----
-
-### 3. `$not` → Students who did **not** pass (marks < 35)
-
-```js
-db.students.find({
-  marks: { $not: { $gte: 35 } }
-});
-```
-
-**Output:**
-
-```json
-[
-  { "name": "Arjun", "age": 22, "city": "Bangalore", "department": "ECE", "marks": 30 }
-]
-
