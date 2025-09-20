@@ -1,5 +1,4 @@
 # MongoDB Aggregation and Logical Operation Notes
----
 
 Create Database and Collection
 ****```js
