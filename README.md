@@ -1,7 +1,6 @@
 # MongoDB Aggregation and Logical Operation Notes
 
 Create Database and Collection
-****```js
 use collegeDB;
 
 db.createCollection("students");
