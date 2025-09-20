@@ -45,7 +45,7 @@ db.students.aggregate([
 ])
 ```
 
-**Output (from shell):**
+Output:
 
 ```
 [
@@ -65,7 +65,7 @@ db.students.aggregate([
 ])
 ```
 
-**Output (from shell):**
+Output:
 
 ```
 [
@@ -73,23 +73,13 @@ db.students.aggregate([
   { _id: 'Mumbai', avgMarks: 70.5 },
   { _id: 'Chennai', avgMarks: 58 }
 ]
-```Perfect 👍 Let’s add **find() examples** with actual shell-style outputs, just like you showed.
-
----
-
-# 🔍 MongoDB Find() Examples
-
-We’ll use the same `students` collection created earlier.
-
----
-
-### 1. Find All Documents
+1. Find All Documents
 
 ```
 db.students.find()
 ```
 
-**Output (from shell):**
+Output:
 
 ```
 [
@@ -109,7 +99,7 @@ db.students.find()
 db.students.find({ city: "Delhi" })
 ```
 
-**Output (from shell):**
+Output:
 
 ```
 [
@@ -126,7 +116,7 @@ db.students.find({ city: "Delhi" })
 db.students.find({ marks: { $gt: 70 } })
 ```
 
-**Output (from shell):**
+Output:
 
 ```
 [
@@ -144,7 +134,7 @@ db.students.find({ marks: { $gt: 70 } })
 db.students.find({ marks: { $gte: 60, $lte: 80 } })
 ```
 
-**Output (from shell):**
+Output:
 
 ```
 [
@@ -163,7 +153,7 @@ db.students.find({
 })
 ```
 
-**Output (from shell):**
+Output:
 
 ```
 [
