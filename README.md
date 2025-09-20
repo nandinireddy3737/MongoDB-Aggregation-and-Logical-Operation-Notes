@@ -1,9 +1,3 @@
-Perfect 🚀 I’ll give you an updated **README.md** that has **queries + sample outputs**.
-We’ll use the student dataset we inserted earlier, so the outputs are consistent.
-
-Here’s the full version:
-
-````markdown
 # MongoDB Aggregation and Logical Operation Notes
 
 This repository contains step-by-step notes and examples on **MongoDB Database Creation**, **Data Insertion**, **Aggregation Framework**, and **Logical Operators**, along with **sample outputs**.
@@ -30,8 +24,6 @@ db.students.insertMany([
   { name: "Arjun", age: 22, city: "Bangalore", department: "ECE", marks: 30 }
 ]);
 ```
-
-✅ **Sample Documents Inserted:**
 
 ```json
 [
