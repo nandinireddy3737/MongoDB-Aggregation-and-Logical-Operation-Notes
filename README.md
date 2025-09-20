@@ -1,7 +1,4 @@
 # MongoDB Aggregation and Logical Operation Notes
-
-This repository contains step-by-step notes and examples on **MongoDB Database Creation**, **Data Insertion**, **Aggregation Framework**, and **Logical Operators**, along with **sample outputs**.
-
 ---
 
 ## 📌 Step 1: Create Database and Collection
@@ -23,16 +20,6 @@ db.students.insertMany([
   { name: "Meena", age: 18, city: "Chennai", department: "CSE", marks: 45 },
   { name: "Arjun", age: 22, city: "Bangalore", department: "ECE", marks: 30 }
 ]);
-```
-
-```json
-[
-  { "name": "Rahul", "age": 20, "city": "Hyderabad", "department": "CSE", "marks": 85 },
-  { "name": "Anjali", "age": 19, "city": "Bangalore", "department": "ECE", "marks": 72 },
-  { "name": "Ravi", "age": 21, "city": "Hyderabad", "department": "IT", "marks": 60 },
-  { "name": "Meena", "age": 18, "city": "Chennai", "department": "CSE", "marks": 45 },
-  { "name": "Arjun", "age": 22, "city": "Bangalore", "department": "ECE", "marks": 30 }
-]
 ```
 
 ---
