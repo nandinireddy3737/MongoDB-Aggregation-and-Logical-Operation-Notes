@@ -3,7 +3,7 @@
 
 
 
-## 🗄 Create Database & Dataset
+## Create Database & Dataset
 
 ```
 use schoolDB
@@ -18,9 +18,7 @@ db.students.insertMany([
   { name: "Eva", age: 20, marks: 74, city: "Mumbai" }
 ])
 ```
-
-**Output (from shell):**
-
+Output:
 ```
 switched to db schoolDB
 {
@@ -75,12 +73,102 @@ db.students.aggregate([
   { _id: 'Mumbai', avgMarks: 70.5 },
   { _id: 'Chennai', avgMarks: 58 }
 ]
+```Perfect 👍 Let’s add **find() examples** with actual shell-style outputs, just like you showed.
+
+---
+
+# 🔍 MongoDB Find() Examples
+
+We’ll use the same `students` collection created earlier.
+
+---
+
+### 1. Find All Documents
+
+```
+db.students.find()
+```
+
+**Output (from shell):**
+
+```
+[
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11111"), name: 'Alice', age: 20, marks: 85, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11112"), name: 'Bob', age: 22, marks: 67, city: 'Mumbai' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11113"), name: 'Charlie', age: 21, marks: 92, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11114"), name: 'David', age: 23, marks: 58, city: 'Chennai' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11115"), name: 'Eva', age: 20, marks: 74, city: 'Mumbai' }
+]
 ```
 
 ---
 
-### 3. Sort Students by Marks (Descending)
+### 2. Find Students from Delhi
 
 ```
-db.students
+db.students.find({ city: "Delhi" })
+```
+
+**Output (from shell):**
+
+```
+[
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11111"), name: 'Alice', age: 20, marks: 85, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11113"), name: 'Charlie', age: 21, marks: 92, city: 'Delhi' }
+]
+```
+
+---
+
+### 3. Find Students with Marks Greater Than 70
+
+```
+db.students.find({ marks: { $gt: 70 } })
+```
+
+**Output (from shell):**
+
+```
+[
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11111"), name: 'Alice', age: 20, marks: 85, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11113"), name: 'Charlie', age: 21, marks: 92, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11115"), name: 'Eva', age: 20, marks: 74, city: 'Mumbai' }
+]
+```
+
+---
+
+### 4. Find Students with Marks Between 60 and 80
+
+```
+db.students.find({ marks: { $gte: 60, $lte: 80 } })
+```
+
+**Output (from shell):**
+
+```
+[
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11112"), name: 'Bob', age: 22, marks: 67, city: 'Mumbai' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11115"), name: 'Eva', age: 20, marks: 74, city: 'Mumbai' }
+]
+```
+
+---
+
+### 5. Find Students Using Logical Operator (\$or)
+
+```
+db.students.find({
+  $or: [ { city: "Delhi" }, { marks: { $lt: 60 } } ]
+})
+```
+
+**Output (from shell):**
+
+```
+[
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11111"), name: 'Alice', age: 20, marks: 85, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11113"), name: 'Charlie', age: 21, marks: 92, city: 'Delhi' },
+  { _id: ObjectId("66f2e4b3a23f98d7a1c11114"), name: 'David', age: 23, marks: 58, city: 'Chennai' }
+]
 ```
