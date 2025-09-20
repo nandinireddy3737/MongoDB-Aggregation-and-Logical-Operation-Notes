@@ -1,8 +1,8 @@
 # MongoDB Aggregation and Logical Operation Notes
 ---
 
-## 📌 Step 1: Create Database and Collection
-```js
+Create Database and Collection
+****```js
 use collegeDB;
 
 db.createCollection("students");
@@ -10,7 +10,7 @@ db.createCollection("students");
 
 ---
 
-## 📌 Step 2: Insert Documents
+Insert Documents
 
 ```js
 db.students.insertMany([
@@ -23,8 +23,7 @@ db.students.insertMany([
 ```
 
 ---
-
-## 📌 Step 3: Aggregation Queries with Outputs
+Aggregation Queries with Outputs
 
 ### 1. Match students with marks ≥ 50
 
